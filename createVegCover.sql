@@ -1,18 +1,24 @@
-DROP TABLE IF EXISTS `vegCover`
-CREATE TABLE `vegCover` AS
+DROP TABLE IF EXISTS `viewVegCover`
+CREATE TABLE `viewVegCover` AS
 SELECT abundance.abundanceID as 'ID'
-, project.name as 'Project'
-, site.siteCode as 'Site Code'
-, abundance.vegObserveDate as 'Date'
-, personnel1.name as 'Observer Primary'
-, personnel2.name as 'Observer Secondary'
-, site.latitude as 'Latitude (dd)'
-, site.longitude as 'Longitude (dd)'
-, datum.datum as 'Datum'
-, speciesAccepted.nameAccepted as 'Accepted Name'
-, abundance.cover as 'Cover'
+, project.shortName as 'project'
+, site.siteCode as 'siteCode'
+, methodSurvey.methodSurvey as 'methodSurvey'
+, methodCover.methodCover as 'methodCover'
+, abundance.vegObserveDate as 'date'
+, personnel1.name as 'vegObserver1'
+, personnel2.name as 'vegObserver2'
+, site.latitude as 'latitude'
+, site.longitude as 'longitude'
+, datum.datum as 'datum'
+, speciesAccepted.nameAccepted as 'nameAccepted'
+, speciesAccepted.tsnAccepted as 'tsnITIS'
+, abundance.cover as 'cover'
 FROM abundance
  JOIN site ON abundance.siteID = site.siteID
+ JOIN method ON site.methodID = method.methodID
+ JOIN methodSurvey ON method.methodSurveyID = methodSurvey.methodSurveyID
+ JOIN methodCover ON method.methodCoverID = methodCover.methodCoverID
  JOIN project ON abundance.projectID = project.projectID
  JOIN speciesAdjudicated ON abundance.adjudicatedID = speciesAdjudicated.adjudicatedID
  JOIN speciesAccepted ON speciesAdjudicated.acceptedID = speciesAccepted.acceptedID
