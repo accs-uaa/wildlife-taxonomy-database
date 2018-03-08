@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS `viewEnvData`
+DROP TABLE IF EXISTS `viewEnvData`;
 CREATE TABLE `viewEnvData` AS
 SELECT environment.environmentID as 'ID'
 , project.shortName as 'project'

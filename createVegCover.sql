@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS `viewVegCover`
+DROP TABLE IF EXISTS `viewVegCover`;
 CREATE TABLE `viewVegCover` AS
 SELECT abundance.abundanceID as 'ID'
 , project.shortName as 'project'
