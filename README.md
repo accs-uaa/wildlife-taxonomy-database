@@ -1,13 +1,18 @@
-# vegetation-plots-database
-SQL code for the ACCS vegetation plots MySQL database.
+# Alaska Vegetation Plots Database
+SQL code for the Alaska Vegetation Plots Database.
 
 ## Getting Started
 
-These instructions will enable you to run a static local copy of the ACCS vegetation plots database. The database was designed for MySQL but will likely run in PostgreSQL as well (not tested).
+These instructions will enable you to load the Alaska Vegetation Plots Database into a MySQL Server as a static local copy. The database was designed for MySQL but can be loaded into PostgreSQL using the pgloader tool. Instructions are not provided for loading the database into PostgreSQL.
 
 ### Prerequisites
-Required: MySQL 5.6 or 5.7 (or PostgreSQL version unknown)
+Required: MySQL 5.6+
 Recommended: phpMyAdmin or MySQL Workbench
+
+OR
+
+Required: PostgreSQL 10.3+ and pgloader 3.1+
+Recommended: pgAdmin 4
 
 ### Installing
 
