@@ -24,4 +24,5 @@ FROM abundance
  JOIN speciesAccepted ON speciesAdjudicated.acceptedID = speciesAccepted.acceptedID
  JOIN datum ON site.datumID = datum.datumID
  JOIN personnel personnel1 ON abundance.vegObserver1ID = personnel1.personnelID
- LEFT JOIN personnel personnel2 ON abundance.vegObserver2ID = personnel2.personnelID;
+ LEFT JOIN personnel personnel2 ON abundance.vegObserver2ID = personnel2.personnelID
+ ORDER BY abundance.abundanceID ASC;

@@ -14,4 +14,5 @@ SELECT statusProject.statusID as 'ID'
 FROM statusProject
  JOIN project ON statusProject.projectID = project.projectID
  LEFT JOIN personnel ON statusProject.modifiedByID = personnel.personnelID
-WHERE statusProject.projectModified IS NOT NULL;
+WHERE statusProject.projectModified IS NOT NULL
+ORDER BY statusProject.statusID ASC;

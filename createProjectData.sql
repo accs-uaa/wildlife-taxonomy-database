@@ -26,3 +26,4 @@ FROM project
  JOIN scopeType scopeTypeP1 ON methodScope.vascularScopeID = scopeTypeP1.scopeTypeID
  JOIN scopeType scopeTypeP2 ON methodScope.nonvascularScopeID = scopeTypeP2.scopeTypeID
  JOIN scopeType scopeTypeP3 ON methodScope.lichenScopeID = scopeTypeP3.scopeTypeID
+ ORDER BY project.projectID ASC;
