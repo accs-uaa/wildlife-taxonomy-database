@@ -3,7 +3,7 @@ Alaska Vegetation Plots Database and associated python-based ArcGIS toolbox for 
 
 ## Getting Started
 
-These instructions will enable you to load a new instance or updated instance of the Alaska Vegetation Plots Database into a MySQL Server. The database was designed for MySQL but can be loaded into PostgreSQL using the pgloader tool. Instructions are not provided for loading the database into PostgreSQL. These instructions will also enable you to run the Vegetation Database Tools toolbox in ArcGIS Pro. The toolbox is not compatible with ArcGIS Desktop. The ArcGIS python environment must be set up with python libraries that are not included in the ArcGIS python installation by default.
+These instructions will enable you to load a new instance or updated instance of the Alaska Vegetation Plots (VegPlots) Database into a MySQL Server. The database was designed for MySQL but can be loaded into PostgreSQL using the pgloader tool. Instructions are not provided for loading the database into PostgreSQL. These instructions will also enable you to run the Vegetation Database Tools toolbox in ArcGIS Pro. The toolbox is not compatible with ArcGIS Desktop. The ArcGIS python environment must be set up with python libraries that are not included in the ArcGIS python installation by default.
 
 ### Prerequisites
 1. MySQL 5.6 or 5.7
@@ -31,6 +31,9 @@ In the MySQL Command Line Client (not MySQL Shell), execute the commands in crea
 
 ## Usage
 
+### SQL Database
+The Alaska VegPlots Database can be interacted with via sql commands or scripts or tools such as phpMyAdmin or MySQL Workbench. The changes made to an instance of the database will not affect the database source on github or the online database available at [https://vegplots.uaa.alaska.edu](https://vegplots.uaa.alaska.edu). Data interactions with the database can be scripted in python and/or R using the appropriate libraries developed for mysql connections. This prevents the need to run queries separately from analysis scripts or export csv files that must be read into data frames in the scripts.
+
 ### Database Tools
 The Vegplots Database Tools toolbox contains script tools that allow interaction with the mysql database in ArcGIS Pro.
 
@@ -43,7 +46,7 @@ The Vegplots Database Tools toolbox contains script tools that allow interaction
 *Output csv*: Define a csv file to be created by the tool to store the query output.
 *Output Feature Class*: Define a feature class to be created by the tool to store the query output. The feature class must be in a file geodatabase and will be projected to Alaska Albers Equal Area Conic.
 
-### Query Vegetation Cover:
+#### Query Vegetation Cover:
 "Query Vegetation Cover" queries vegetation plot data from a user's copy of the Alaska Vegetation Plots database based on a user-input taxon.
 *Database User*: Enter the name of the database user with access to the vegplots database.
 *Database Password*: Enter the password for the database user with access to the vegplots database.
