@@ -37,6 +37,12 @@ type = arcpy.GetParameterAsText(7)
 # Select only quantitative or semi-quantitative cover methods
 quantitative_cover = arcpy.GetParameterAsText(8)
 
+# Define start date
+start_date = arcpy.GetParameterAsText(9)
+
+# Define end date
+end_date = arcpy.GetParameterAsText(10)
+
 # Define intermediate files
 temp_csv = os.path.join(workspace_folder, "database_export.csv")
 temp_feature = output_feature + "_temp"
@@ -47,7 +53,7 @@ connection = mysql.connector.connect(user = database_user, password = database_p
 cursor = connection.cursor()
 
 # Set up query
-vegCover_query = ("""SELECT abundance.abundanceID as 'ID', project.shortName as 'project', site.siteCode as 'siteCode', methodSurvey.methodSurvey as 'methodSurvey', methodCover.methodCover as 'methodCover', vascularScope1.scopeType as 'vascularScope', nonvascularScope1.scopeType as 'nonvascularScope', lichenScope1.scopeType as 'lichenScope', abundance.vegObserveDate as 'date', personnel1.name as 'vegObserver1', personnel2.name as 'vegObserver2', site.latitude as 'latitude', site.longitude as 'longitude', speciesAccepted.nameAccepted as 'nameAccepted', speciesAccepted.tsnAccepted as 'tsnITIS', abundance.cover as 'cover' FROM abundance JOIN site ON abundance.siteID = site.siteID JOIN method ON site.methodID = method.methodID JOIN methodSurvey ON method.methodSurveyID = methodSurvey.methodSurveyID JOIN methodCover ON method.methodCoverID = methodCover.methodCoverID JOIN project ON abundance.projectID = project.projectID JOIN speciesAdjudicated ON abundance.adjudicatedID = speciesAdjudicated.adjudicatedID JOIN speciesAccepted ON speciesAdjudicated.acceptedID = speciesAccepted.acceptedID JOIN datum ON site.datumID = datum.datumID JOIN personnel personnel1 ON abundance.vegObserver1ID = personnel1.personnelID LEFT JOIN personnel personnel2 ON abundance.vegObserver2ID = personnel2.personnelID JOIN methodScope ON project.scopeID = methodScope.scopeID JOIN scopeType vascularScope1 ON methodScope.vascularScopeID = vascularScope1.scopeTypeID JOIN scopeType nonvascularScope1 ON methodScope.nonvascularScopeID = nonvascularScope1.scopeTypeID JOIN scopeType lichenScope1 ON methodScope.lichenScopeID = lichenScope1.scopeTypeID WHERE speciesAccepted.nameAccepted = %s""")
+vegCover_query = ("""SELECT abundance.abundanceID as 'abundanceID', project.shortName as 'project', abundance.siteID as 'siteID', site.siteCode as 'siteCode', methodSurvey.methodSurvey as 'methodSurvey', methodCover.methodCover as 'methodCover', vascularScope1.scopeType as 'vascularScope', nonvascularScope1.scopeType as 'nonvascularScope', lichenScope1.scopeType as 'lichenScope', abundance.vegObserveDate as 'date', personnel1.name as 'vegObserver1', personnel2.name as 'vegObserver2', datum.datum as 'datum', site.latitude as 'latitude', site.longitude as 'longitude', speciesAccepted.nameAccepted as 'nameAccepted', speciesAccepted.tsnAccepted as 'tsnITIS', abundance.cover as 'cover' FROM abundance JOIN site ON abundance.siteID = site.siteID JOIN method ON site.methodID = method.methodID JOIN methodSurvey ON method.methodSurveyID = methodSurvey.methodSurveyID JOIN methodCover ON method.methodCoverID = methodCover.methodCoverID JOIN project ON abundance.projectID = project.projectID JOIN speciesAdjudicated ON abundance.adjudicatedID = speciesAdjudicated.adjudicatedID JOIN speciesAccepted ON speciesAdjudicated.acceptedID = speciesAccepted.acceptedID JOIN datum ON site.datumID = datum.datumID JOIN personnel personnel1 ON abundance.vegObserver1ID = personnel1.personnelID LEFT JOIN personnel personnel2 ON abundance.vegObserver2ID = personnel2.personnelID JOIN methodScope ON project.scopeID = methodScope.scopeID JOIN scopeType vascularScope1 ON methodScope.vascularScopeID = vascularScope1.scopeTypeID JOIN scopeType nonvascularScope1 ON methodScope.nonvascularScopeID = nonvascularScope1.scopeTypeID JOIN scopeType lichenScope1 ON methodScope.lichenScopeID = lichenScope1.scopeTypeID WHERE speciesAccepted.nameAccepted = %s AND abundance.vegObserveDate BETWEEN %s AND %s""")
 
 # Modify query based on type input. Queries for vascular plants only return sites where the scope was exhaustive. Queries for non-vascular plants and lichens return sites where the scope was exhaustive or high cover species.
 if type == "vascular":
@@ -68,7 +74,7 @@ vegCover_query = vegCover_query + (""" ORDER BY abundance.abundanceID ASC""")
 
 # Execute query and fetch results
 arcpy.AddMessage("Pushing query results to output...")
-cursor.execute(vegCover_query, (taxon,))
+cursor.execute(vegCover_query, (taxon, start_date, end_date))
 result = cursor.fetchall()
 
 # Create column names as a list
