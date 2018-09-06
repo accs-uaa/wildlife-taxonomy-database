@@ -46,24 +46,45 @@ The Vegplots Database Tools toolbox contains script tools that allow interaction
 * *Output csv*: Define a csv file to be created by the tool to store the query output.
 * *Output Feature Class*: Define a feature class to be created by the tool to store the query output. The feature class must be in a file geodatabase and will be projected to Alaska Albers Equal Area Conic.
 
-#### Query Vegetation Cover:
-"Query Vegetation Cover" queries vegetation plot data from a user's copy of the Alaska Vegetation Plots database based on a user-input taxon.
+#### Query Taxon Cover:
+"Query Taxon Cover" queries the MySQL Alaska Vegetation Plots Database for cover by a taxon. Cover values are aggregated so that multiple values at a single site for a single date are summed.
 * *Database User*: Enter the name of the database user with access to the vegplots database.
 * *Database Password*: Enter the password for the database user with access to the vegplots database.
 * *Database Host*: Leave as 'localhost' if the MySQL Server is running on your local machine or change to the server host location. Otherwise enter the server location for the database to be queried.
 * *Database Name*: Leave as 'vegplots' to use the default database name or change to match a custom name for the database.
-* *Taxon*: Enter the name of an accepted taxon according to the new Flora of Alaska accessible at [https://floraofalaska.org/vascular-flora/](https://floraofalaska.org/vascular-flora/).
-* *Workspace*: Select a folder to which the tool can write temporary files.
-* *Query Output*: Enter a shapefile or geodatabase feature class to store the output.
+* *Taxon*: Enter the name of an accepted taxon according to the new Flora of Alaska accessible at [https://floraofalaska.org/comprehensive-checklist/](https://floraofalaska.org/comprehensive-checklist/).
+* *Workspace Folder*: Select a folder to which the tool can write temporary files.
+* *Output Feature Class*: Enter a geodatabase feature class to store the output.
+* *Quantitative Cover*: Selecting 'True' will limit the queried sites to those where the method was quantitative or semi-quantitative visual estimate. Selecting 'False' will include classified cover values, such as Braun-Blanquet.
+* *Start Date*: Enter the earliest date to be included in the results.
+* *End Date*: Enter the latest date to be included in the results.
+
+#### Query Aggregate Cover:
+"Query Aggregate Cover" queries the MySQL Alaska Vegetation Plots Database for cover by an aggregate of taxa. Cover values are aggregated so that multiple values at a single site for a single date are summed.
+* *Database User*: Enter the name of the database user with access to the vegplots database.
+* *Database Password*: Enter the password for the database user with access to the vegplots database.
+* *Database Host*: Leave as 'localhost' if the MySQL Server is running on your local machine or change to the server host location. Otherwise enter the server location for the database to be queried.
+* *Database Name*: Leave as 'vegplots' to use the default database name or change to match a custom name for the database.
+* *Aggregate*: Enter the names of accepted taxa at the lowest level with each taxon in its own field. Names should be limited to accepted names in the new Flora of Alaska accessible at [https://floraofalaska.org/comprehensive-checklist/](https://floraofalaska.org/comprehensive-checklist/).
+* *Workspace Folder*: Select a folder to which the tool can write temporary files.
+* *Output Feature Class*: Enter a geodatabase feature class to store the output.
+* *Quantitative Cover*: Selecting 'True' will limit the queried sites to those where the method was quantitative or semi-quantitative visual estimate. Selecting 'False' will include classified cover values, such as Braun-Blanquet.
+* *Start Date*: Enter the earliest date to be included in the results.
+* *End Date*: Enter the latest date to be included in the results.
+* *Aggregate Name*: Enter a name for the aggregate.
 
 #### Vegetation Cover Sites:
-"Vegetation Cover Sites" queries all sites with associated vegetation cover data and returns the results as a csv and a feature class in a file geodatabase.
+"Vegetation Cover Sites" queries all sites with associated vegetation cover data and returns the results as a feature class in a file geodatabase.
 * *Database User*: Enter the name of the database user with access to the vegplots database.
 * *Database Password*: Enter the password for the database user with access to the vegplots database.
 * *Database Host*: Leave as 'localhost' if the MySQL Server is running on your local machine or change to the server host location. Otherwise enter the server location for the database to be queried.
 * *Database Name*: Leave as 'vegplots' to use the default database name or change to match a custom name for the database.
-* *Output csv*: Define a csv file to be created by the tool to store the query output.
-* *Output Feature Class*: Define a feature class to be created by the tool to store the query output. The feature class must be in a file geodatabase and will be projected to Alaska Albers Equal Area Conic.
+* *Workspace Folder*: Select a folder to which the tool can write temporary files.
+* *Output Feature Class*: Enter a geodatabase feature class to store the output.
+* *Type*: Define target life group of survey sites.
+* *Quantitative Cover*: Selecting 'True' will limit the queried sites to those where the method was quantitative or semi-quantitative visual estimate. Selecting 'False' will include classified cover values, such as Braun-Blanquet.
+* *Start Date*: Enter the earliest date to be included in the results.
+* *End Date*: Enter the latest date to be included in the results.
 
 ## Credits
 
