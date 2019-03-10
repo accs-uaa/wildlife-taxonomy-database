@@ -55,6 +55,7 @@ vegCover_query = ("""SELECT DISTINCT abundance.siteID as 'siteID'
 , project.shortName as 'project'
 , methodSurvey.methodSurvey as 'methodSurvey'
 , methodCover.methodCover as 'methodCover'
+, plotDimensions.plotDimensions as 'plotDimensions'
 , vascularScope1.scopeType as 'vascularScope'
 , nonvascularScope1.scopeType as 'nonvascularScope'
 , lichenScope1.scopeType as 'lichenScope'
@@ -73,7 +74,9 @@ FROM abundance
  JOIN project ON abundance.projectID = project.projectID 
  JOIN speciesAdjudicated ON abundance.adjudicatedID = speciesAdjudicated.adjudicatedID
  JOIN speciesAccepted ON speciesAdjudicated.acceptedID = speciesAccepted.acceptedID
- JOIN datum ON site.datumID = datum.datumID JOIN personnel personnel1 ON abundance.vegObserver1ID = personnel1.personnelID
+ JOIN datum ON site.datumID = datum.datumID
+ JOIN plotDimensions ON site.plotDimensionsID = plotDimensions.plotDimensionsID
+ JOIN personnel personnel1 ON abundance.vegObserver1ID = personnel1.personnelID
  LEFT JOIN personnel personnel2 ON abundance.vegObserver2ID = personnel2.personnelID
  JOIN methodScope ON project.scopeID = methodScope.scopeID
  JOIN scopeType vascularScope1 ON methodScope.vascularScopeID = vascularScope1.scopeTypeID
