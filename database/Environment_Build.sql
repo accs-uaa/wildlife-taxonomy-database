@@ -51,23 +51,23 @@ CREATE TABLE `microtopography` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `moisture` (
     `moistureID` int(3) NOT NULL,
-    `moisture` varchar(50) NOT NULL,
+    `moisture` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `physiography` (
     `physiographyID` int(3) NOT NULL,
-    `physiography` varchar(50) NOT NULL,
+    `physiography` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `restrictiveType` (
     `restrictiveTypeID` int(3) NOT NULL,
-    `restrictiveType` varchar(50) NOT NULL,
+    `restrictiveType` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `soilClass` (
     `soilClassID` int(3) NOT NULL,
-    `soilClass` varchar(50) NOT NULL,
+    `soilClass` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `stratification` (
     `strataID` int(3) NOT NULL,
-    `strata` varchar(50) NOT NULL,
+    `strata` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Set key values for constraints

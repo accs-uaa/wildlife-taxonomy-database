@@ -14,7 +14,7 @@ SET foreign_key_checks = 0;
 DROP TABLE IF EXISTS `organizationType`,
     `organization`,
     `project`,
-    `statusProject`;
+    `projectStatus`;
 
 -- Create organization type table
 CREATE TABLE `organizationType` (
@@ -25,7 +25,7 @@ CREATE TABLE `organizationType` (
 -- Set key values for organization type
 ALTER TABLE `organizationType`
     ADD PRIMARY KEY (`orgTypeID`),
-    ADD UNIQUE KEY `organizationType` (`orgType`);
+    ADD UNIQUE KEY `orgType` (`orgType`);
 
 -- Create organization table
 CREATE TABLE `organization` (
@@ -39,7 +39,7 @@ CREATE TABLE `organization` (
 ALTER TABLE `organization`
     ADD PRIMARY KEY (`organizationID`),
     ADD UNIQUE KEY `organization` (`organization`),
-    ADD UNIQUE KEY `organization` (`organizationAbbr`),
+    ADD UNIQUE KEY `organizationAbbr` (`organizationAbbr`),
     ADD CONSTRAINT `orgTypeCNST` FOREIGN KEY (`orgTypeID`) REFERENCES `organizationType` (`orgTypeID`) ON UPDATE CASCADE;
 
 -- Create projects table

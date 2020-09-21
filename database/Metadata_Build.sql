@@ -56,7 +56,7 @@ ALTER TABLE `schemaType`
     ADD UNIQUE KEY `schemaType` (`schemaType`);
 ALTER TABLE `personnel`
     ADD PRIMARY KEY (`personnelID`),
-    ADD UNIQUE KEY `personnel` (`name`);
+    ADD UNIQUE KEY `name` (`name`);
 
 -- Create schema table
 CREATE TABLE `schema` (
