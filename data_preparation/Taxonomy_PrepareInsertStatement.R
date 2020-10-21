@@ -2,9 +2,9 @@
 # ---------------------------------------------------------------------------
 # Prepare taxonomic data for upload
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
-# Last Updated: 2020-09-20
+# Last Updated: 2020-10-19
 # Usage: Script should be executed in R 4.0.0+.
-# Description: "Prepare taxonomic data for upload" merges taxonomy tables for vascular plants, bryophytes, and lichens; joins code and TSN from PLANTS and ITIS, respectively; and parses data into sql files for upload into empty tables.
+# Description: "Prepare taxonomic data for upload" merges taxonomy tables for vascular plants, bryophytes, and lichens; and parses data into a SQL query for upload into empty tables.
 # ---------------------------------------------------------------------------
 
 # Set root directory
@@ -14,27 +14,27 @@ root_folder = 'ACCS_Work'
 # Define input folders
 data_folder = paste(drive,
                     root_folder,
-                    'Projects/VegetationEcology/AKVEG_Taxonomy',
+                    'Projects/VegetationEcology/AKVEG_PlotsDatabase/Data/Tables_Taxonomy',
                     sep = '/')
 
 # Designate output sql file
-sql_taxonomy = 'C:/Users/timmn/Documents/Repositories/vegetation-plots-database/database/Taxonomy_InsertData.sql'
+sql_taxonomy = 'C:/Users/timmn/Documents/Repositories/vegetation-plots-database/database/Insert_1_Taxonomy.sql'
 
 # Identify taxonomy tables
 vascular_file = paste(data_folder,
-                      'VascularPlants.xlsx',
+                      'vascularPlants.xlsx',
                       sep='/')
 bryophyte_file = paste(data_folder,
-                       'Bryophytes.xlsx',
+                       'bryophytes.xlsx',
                        sep='/')
 lichen_file = paste(data_folder,
-                    'Lichens.xlsx',
+                    'lichens.xlsx',
                     sep='/')
 unknown_file = paste(data_folder,
-                     'Unknowns.xlsx',
+                     'unknowns.xlsx',
                      sep = '/')
 citation_file = paste(data_folder,
-                      'Citations.xlsx',
+                      'citations.xlsx',
                       sep='/')
 
 # Import required libraries
@@ -197,23 +197,23 @@ statement = c(
   '-- Insert taxonomy data',
   '-- Author: Timm Nawrocki, Alaska Center for Conservation Science',
   paste('-- Last Updated: ', Sys.Date()),
-  '-- Usage: Script should be executed in a MySQL 5.6+.',
+  '-- Usage: Script should be executed in a PostgreSQL 12 database.',
   '-- Description: "Insert taxonomy data" pushes data from the taxonomy editing tables into the database server. The script "Build taxonomy tables" should be run prior to this script to start with empty, properly formatted tables.',
   '-- ---------------------------------------------------------------------------',
   '',
-  '-- Enable foreign key checks',
-  'SET foreign_key_checks = 1;'
+  '-- Initialize transaction',
+  'START TRANSACTION;',
+  ''
   )
 
 # Add author statement
 statement = c(statement,
-              '',
               '-- Insert data into author table',
-              'INSERT INTO `author` (`authorID`, `author`) VALUES'
+              'INSERT INTO author (authorID, author) VALUES'
               )
 author_sql = author_table %>%
   mutate_if(is.character,
-            str_replace_all, pattern = "'", replacement = '\\\\\'') %>%
+            str_replace_all, pattern = '\'', replacement = '\'\'') %>%
   mutate(author = paste('\'', author, '\'', sep = '')) %>%
   unite(sql, sep = ', ', remove = TRUE) %>%
   mutate(sql = paste('(', sql, '),', sep =''))
@@ -231,7 +231,7 @@ for (line in author_sql) {
 statement = c(statement,
               '',
               '-- Insert data into category table',
-              'INSERT INTO `category` (`categoryID`, `category`) VALUES'
+              'INSERT INTO category (categoryID, category) VALUES'
               )
 category_sql = category_table %>%
   mutate(category = paste('\'', category, '\'', sep = '')) %>%
@@ -250,7 +250,7 @@ for (line in category_sql) {
 statement = c(statement,
               '',
               '-- Insert data into family table',
-              'INSERT INTO `family` (`familyID`, `family`) VALUES'
+              'INSERT INTO family (familyID, family) VALUES'
               )
 family_sql = family_table %>%
   mutate(family = paste('\'', family, '\'', sep = '')) %>%
@@ -269,7 +269,7 @@ for (line in family_sql) {
 statement = c(statement,
               '',
               '-- Insert data into habit table',
-              'INSERT INTO `habit` (`habitID`, `habit`) VALUES'
+              'INSERT INTO habit (habitID, habit) VALUES'
 )
 habit_sql = habit_table %>%
   mutate(habit = paste('\'', habit, '\'', sep = '')) %>%
@@ -288,7 +288,7 @@ for (line in habit_sql) {
 statement = c(statement,
               '',
               '-- Insert data into taxon status table',
-              'INSERT INTO `taxonStatus` (`taxonStatusID`, `taxonStatus`) VALUES'
+              'INSERT INTO taxonStatus (taxonStatusID, taxonStatus) VALUES'
 )
 status_sql = status_table %>%
   mutate(taxonStatus = paste('\'', taxonStatus, '\'', sep = '')) %>%
@@ -307,7 +307,7 @@ for (line in status_sql) {
 statement = c(statement,
               '',
               '-- Insert data into taxon level table',
-              'INSERT INTO `taxonLevel` (`levelID`, `level`) VALUES'
+              'INSERT INTO taxonLevel (levelID, level) VALUES'
 )
 level_sql = level_table %>%
   mutate(level = paste('\'', level, '\'', sep = '')) %>%
@@ -326,11 +326,11 @@ for (line in level_sql) {
 statement = c(statement,
               '',
               '-- Insert data into taxon source table',
-              'INSERT INTO `taxonSource` (`taxonSourceID`, `taxonSource`, `citation`) VALUES'
+              'INSERT INTO taxonSource (taxonSourceID, taxonSource, citation) VALUES'
 )
 source_sql = source_table %>%
   mutate_if(is.character,
-            str_replace_all, pattern = "'", replacement = '\\\\\'') %>%
+            str_replace_all, pattern = '\'', replacement = '\'\'') %>%
   mutate(taxonSource = paste('\'', taxonSource, '\'', sep = '')) %>%
   mutate(citation = paste('\'', citation, '\'', sep = '')) %>%
   unite(sql, sep = ', ', remove = TRUE) %>%
@@ -348,7 +348,7 @@ for (line in source_sql) {
 statement = c(statement,
               '',
               '-- Insert data into hierarchy table',
-              'INSERT INTO `hierarchy` (`hierarchyID`, `genusAccepted`, `familyID`, `categoryID`) VALUES'
+              'INSERT INTO hierarchy (hierarchyID, genusAccepted, familyID, categoryID) VALUES'
 )
 hierarchy_sql = hierarchy_table %>%
   mutate(genusAccepted = paste('\'', genusAccepted, '\'', sep = '')) %>%
@@ -367,11 +367,11 @@ for (line in hierarchy_sql) {
 statement = c(statement,
               '',
               '-- Insert data into accepted taxon table',
-              'INSERT INTO `taxonAccepted` (`acceptedID`, `nameAccepted`, `authAcceptedID`, `hierarchyID`, `taxonSourceID`, `linkSource`, `levelID`, `habitID`, `native`, `non_native`) VALUES'
+              'INSERT INTO taxonAccepted (acceptedID, nameAccepted, authAcceptedID, hierarchyID, taxonSourceID, linkSource, levelID, habitID, native, non_native) VALUES'
 )
 accepted_sql = accepted_table %>%
   mutate_if(is.character,
-            str_replace_all, pattern = "'", replacement = '\\\\\'') %>%
+            str_replace_all, pattern = '\'', replacement = '\'\'') %>%
   mutate(nameAccepted = paste('\'', nameAccepted, '\'', sep = '')) %>%
   mutate(linkSource = paste('\'', linkSource, '\'', sep = '')) %>%
   unite(sql, sep = ', ', remove = TRUE) %>%
@@ -389,7 +389,7 @@ for (line in accepted_sql) {
 statement = c(statement,
               '',
               '-- Insert data into adjudicated taxon table',
-              'INSERT INTO `taxonAdjudicated` (`adjudicatedID`, `nameAdjudicated`, `authAdjudicatedID`, `statusAdjudicatedID`, `acceptedID`) VALUES'
+              'INSERT INTO taxonAdjudicated (adjudicatedID, nameAdjudicated, authAdjudicatedID, statusAdjudicatedID, acceptedID) VALUES'
 )
 adjudicated_sql = adjudicated_table %>%
   mutate(nameAdjudicated = paste('\'', nameAdjudicated, '\'', sep = '')) %>%
@@ -407,8 +407,8 @@ for (line in adjudicated_sql) {
 # Finalize statement
 statement = c(statement,
               '',
-              '-- Commit changes',
-              'COMMIT;')
+              '-- Commit transaction',
+              'COMMIT TRANSACTION;')
 
 # Write statement to SQL file
 write_lines(statement, sql_taxonomy)

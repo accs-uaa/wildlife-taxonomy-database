@@ -2,28 +2,29 @@
 -- ---------------------------------------------------------------------------
 -- Publish taxonomy checklists
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated: 2020-09-20
--- Usage: Script should be executed in a MySQL 5.6+.
+-- Last Updated: 2020-10-19
+-- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Publish taxonomy checklists" creates aggregate tables of the vascular plant, bryophyte, lichen, and comprehensive taxonomic checklists to be viewed through web applications on the Flora of Alaska and AKVEG domains.
 -- ---------------------------------------------------------------------------
 
--- -- Drop taxonomy tables if they exist
-DROP TABLE IF EXISTS `viewVascularChecklist`,
-    `viewBryophyteChecklist`,
-    `viewLichenChecklist`,
-    `viewComprehensiveChecklist`;
+-- Drop taxonomy tables if they exist
+DROP TABLE IF EXISTS
+    viewVascularChecklist,
+    viewBryophyteChecklist,
+    viewLichenChecklist,
+    viewComprehensiveChecklist;
 
 -- Create vascular plant checklist
-CREATE TABLE `viewVascularChecklist` AS
-    SELECT taxonAdjudicated.adjudicatedID as 'ID'
-         , CONCAT('<i>', taxonAdjudicated.nameAdjudicated, '</i> ', authorAdjudicated.author) as 'name'
-         , taxonStatus.taxonStatus as 'status'
-         , CONCAT('<i>', taxonAccepted.nameAccepted, '</i> ', authorAccepted.author) as 'nameAccepted'
-         , family.family as 'family'
-         , taxonAccepted.linkSource as 'source'
-         , taxonLevel.level as 'level'
-         , category.category as 'category'
-         , habit.habit as 'habit'
+CREATE TABLE viewVascularChecklist AS
+    SELECT taxonAdjudicated.adjudicatedID as ID
+         , CONCAT('<i>', taxonAdjudicated.nameAdjudicated, '</i> ', authorAdjudicated.author) as name
+         , taxonStatus.taxonStatus as status
+         , CONCAT('<i>', taxonAccepted.nameAccepted, '</i> ', authorAccepted.author) as nameAccepted
+         , family.family as family
+         , taxonAccepted.linkSource as source
+         , taxonLevel.level as level
+         , category.category as category
+         , habit.habit as habit
     FROM taxonAdjudicated
         JOIN author authorAdjudicated ON taxonAdjudicated.authAdjudicatedID = authorAdjudicated.authorID
         JOIN taxonAccepted ON taxonAdjudicated.acceptedID = taxonAccepted.acceptedID
@@ -34,19 +35,20 @@ CREATE TABLE `viewVascularChecklist` AS
         JOIN family ON hierarchy.familyID = family.familyID
         JOIN category ON hierarchy.categoryID = category.categoryID
         JOIN habit ON taxonAccepted.habitID = habit.habitID
-    WHERE taxonAccepted.levelID != 6 AND category.category IN ('Eudicot', 'Fern', 'Gymnosperm', 'Horsetail', 'Lycophyte', 'Monocot');
+    WHERE taxonAccepted.levelID != 6 AND category.category IN ('Eudicot', 'Fern', 'Gymnosperm', 'Horsetail', 'Lycophyte', 'Monocot')
+    ORDER BY family.family, taxonAccepted.nameAccepted, taxonAdjudicated.nameAdjudicated;
 
 -- Create bryophyte checklist
-CREATE TABLE `viewBryophyteChecklist` AS
-    SELECT taxonAdjudicated.adjudicatedID as 'ID'
-         , CONCAT('<i>', taxonAdjudicated.nameAdjudicated, '</i> ', authorAdjudicated.author) as 'name'
-         , taxonStatus.taxonStatus as 'status'
-         , CONCAT('<i>', taxonAccepted.nameAccepted, '</i> ', authorAccepted.author) as 'nameAccepted'
-         , family.family as 'family'
-         , taxonAccepted.linkSource as 'source'
-         , taxonLevel.level as 'level'
-         , category.category as 'category'
-         , habit.habit as 'habit'
+CREATE TABLE viewBryophyteChecklist AS
+    SELECT taxonAdjudicated.adjudicatedID as ID
+         , CONCAT('<i>', taxonAdjudicated.nameAdjudicated, '</i> ', authorAdjudicated.author) as name
+         , taxonStatus.taxonStatus as status
+         , CONCAT('<i>', taxonAccepted.nameAccepted, '</i> ', authorAccepted.author) as nameAccepted
+         , family.family as family
+         , taxonAccepted.linkSource as source
+         , taxonLevel.level as level
+         , category.category as category
+         , habit.habit as habit
     FROM taxonAdjudicated
         JOIN author authorAdjudicated ON taxonAdjudicated.authAdjudicatedID = authorAdjudicated.authorID
         JOIN taxonAccepted ON taxonAdjudicated.acceptedID = taxonAccepted.acceptedID
@@ -57,19 +59,20 @@ CREATE TABLE `viewBryophyteChecklist` AS
         JOIN family ON hierarchy.familyID = family.familyID
         JOIN category ON hierarchy.categoryID = category.categoryID
         JOIN habit ON taxonAccepted.habitID = habit.habitID
-    WHERE taxonAccepted.levelID != 6 AND category.category IN ('Hornwort', 'Liverwort', 'Moss');
+    WHERE taxonAccepted.levelID != 6 AND category.category IN ('Hornwort', 'Liverwort', 'Moss')
+    ORDER BY family.family, taxonAccepted.nameAccepted, taxonAdjudicated.nameAdjudicated;
 
 -- Create lichen checklist
-CREATE TABLE `viewLichenChecklist` AS
-    SELECT taxonAdjudicated.adjudicatedID as 'ID'
-         , CONCAT('<i>', taxonAdjudicated.nameAdjudicated, '</i> ', authorAdjudicated.author) as 'name'
-         , taxonStatus.taxonStatus as 'status'
-         , CONCAT('<i>', taxonAccepted.nameAccepted, '</i> ', authorAccepted.author) as 'nameAccepted'
-         , family.family as 'family'
-         , taxonAccepted.linkSource as 'source'
-         , taxonLevel.level as 'level'
-         , category.category as 'category'
-         , habit.habit as 'habit'
+CREATE TABLE viewLichenChecklist AS
+    SELECT taxonAdjudicated.adjudicatedID as ID
+         , CONCAT('<i>', taxonAdjudicated.nameAdjudicated, '</i> ', authorAdjudicated.author) as name
+         , taxonStatus.taxonStatus as status
+         , CONCAT('<i>', taxonAccepted.nameAccepted, '</i> ', authorAccepted.author) as nameAccepted
+         , family.family as family
+         , taxonAccepted.linkSource as source
+         , taxonLevel.level as level
+         , category.category as category
+         , habit.habit as habit
     FROM taxonAdjudicated
         JOIN author authorAdjudicated ON taxonAdjudicated.authAdjudicatedID = authorAdjudicated.authorID
         JOIN taxonAccepted ON taxonAdjudicated.acceptedID = taxonAccepted.acceptedID
@@ -80,19 +83,20 @@ CREATE TABLE `viewLichenChecklist` AS
         JOIN family ON hierarchy.familyID = family.familyID
         JOIN category ON hierarchy.categoryID = category.categoryID
         JOIN habit ON taxonAccepted.habitID = habit.habitID
-    WHERE taxonAccepted.levelID != 6 AND category.category = 'Lichen';
+    WHERE taxonAccepted.levelID != 6 AND category.category = 'Lichen'
+    ORDER BY family.family, taxonAccepted.nameAccepted, taxonAdjudicated.nameAdjudicated;
 
 -- Create comprehensive checklist
-CREATE TABLE `viewComprehensiveChecklist` AS
-    SELECT taxonAdjudicated.adjudicatedID as 'ID'
-         , CONCAT('<i>', taxonAdjudicated.nameAdjudicated, '</i> ', authorAdjudicated.author) as 'name'
-         , taxonStatus.taxonStatus as 'status'
-         , CONCAT('<i>', taxonAccepted.nameAccepted, '</i> ', authorAccepted.author) as 'nameAccepted'
-         , family.family as 'family'
-         , taxonAccepted.linkSource as 'source'
-         , taxonLevel.level as 'level'
-         , category.category as 'category'
-         , habit.habit as 'habit'
+CREATE TABLE viewComprehensiveChecklist AS
+    SELECT taxonAdjudicated.adjudicatedID as ID
+         , CONCAT('<i>', taxonAdjudicated.nameAdjudicated, '</i> ', authorAdjudicated.author) as name
+         , taxonStatus.taxonStatus as status
+         , CONCAT('<i>', taxonAccepted.nameAccepted, '</i> ', authorAccepted.author) as nameAccepted
+         , family.family as family
+         , taxonAccepted.linkSource as source
+         , taxonLevel.level as level
+         , category.category as category
+         , habit.habit as habit
     FROM taxonAdjudicated
         JOIN author authorAdjudicated ON taxonAdjudicated.authAdjudicatedID = authorAdjudicated.authorID
         JOIN taxonAccepted ON taxonAdjudicated.acceptedID = taxonAccepted.acceptedID
@@ -103,4 +107,5 @@ CREATE TABLE `viewComprehensiveChecklist` AS
         JOIN family ON hierarchy.familyID = family.familyID
         JOIN category ON hierarchy.categoryID = category.categoryID
         JOIN habit ON taxonAccepted.habitID = habit.habitID
-    WHERE taxonAccepted.levelID != 6;
+    WHERE taxonAccepted.levelID != 6
+    ORDER BY family.family, taxonAccepted.nameAccepted, taxonAdjudicated.nameAdjudicated;
