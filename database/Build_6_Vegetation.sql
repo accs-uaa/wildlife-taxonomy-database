@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS
 
 -- Create total cover table
 CREATE TABLE cover (
-    coverID integer PRIMARY KEY,
+    coverID integer SERIAL PRIMARY KEY,
     siteID integer NOT NULL REFERENCES site,
     projectID smallint NOT NULL REFERENCES project,
     vegObserveDate date NOT NULL,

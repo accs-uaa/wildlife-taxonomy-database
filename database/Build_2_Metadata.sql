@@ -62,7 +62,6 @@ CREATE TABLE datum (
 );
 CREATE TABLE disturbance (
     disturbanceID smallint PRIMARY KEY,
-    disturbanceTypeID smallint NOT NULL REFERENCES disturbanceType,
     disturbance varchar(50) UNIQUE NOT NULL
 );
 CREATE TABLE drainage (
@@ -149,7 +148,7 @@ CREATE TABLE databaseSchema (
     isUnique boolean NOT NULL,
     isKey boolean NOT NULL,
     required boolean NOT NULL,
-    linkTable smallint REFERENCES schemaTable,
+    linkTableID smallint REFERENCES schemaTable,
     fieldDescription varchar(255)
 );
 

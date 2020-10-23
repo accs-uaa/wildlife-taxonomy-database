@@ -13,7 +13,8 @@ START TRANSACTION;
 -- Drop project tables if they exist
 DROP TABLE IF EXISTS
     project,
-    projectStatus;
+    projectStatus
+CASCADE;
 
 -- Create projects table
 CREATE TABLE project (
