@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS
 
 -- Create environment table
 CREATE TABLE environment (
-    environmentID integer SERIAL PRIMARY KEY,
+    environmentID serial PRIMARY KEY,
     projectID smallint NOT NULL REFERENCES project,
     siteID integer NOT NULL REFERENCES site,
     envObserveDate date NOT NULL,

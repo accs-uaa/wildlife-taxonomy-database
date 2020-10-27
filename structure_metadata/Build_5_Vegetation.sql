@@ -16,16 +16,16 @@ DROP TABLE IF EXISTS
 
 -- Create total cover table
 CREATE TABLE cover (
-    coverID integer SERIAL PRIMARY KEY,
-    siteID integer NOT NULL REFERENCES site,
+    coverID serial PRIMARY KEY,
     projectID smallint NOT NULL REFERENCES project,
+    siteID integer NOT NULL REFERENCES site,
     vegObserveDate date NOT NULL,
     vegObserverID smallint NOT NULL REFERENCES personnel,
     vegRecorderID smallint REFERENCES personnel,
     coverTypeID smallint NOT NULL REFERENCES coverType,
     nameOriginal varchar(120) NOT NULL,
     adjudicatedID integer NOT NULL REFERENCES taxonadjudicated,
-    coverTotal decimal(6,3) NOT NULL
+    cover decimal(6,3) NOT NULL
 );
 
 -- Commit transaction

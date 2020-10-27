@@ -10,7 +10,7 @@
 # Set root directory
 drive = 'N:'
 root_folder = 'ACCS_Work'
-data_folder = 'Projects/VegetationEcology/AKVEG_PlotsDatabase/Data/vegetationPlots/03_poplarBreen_2014'
+data_folder = 'Projects/VegetationEcology/AKVEG_PlotsDatabase/Data/Data_Plots/22_npsSitkaLC_2012'
 
 # Define input data
 observation_file = file.choose()

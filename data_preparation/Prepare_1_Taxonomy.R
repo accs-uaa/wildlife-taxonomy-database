@@ -18,7 +18,7 @@ data_folder = paste(drive,
                     sep = '/')
 
 # Designate output sql file
-sql_taxonomy = 'C:/Users/timmn/Documents/Repositories/vegetation-plots-database/database/Insert_1_Taxonomy.sql'
+sql_taxonomy = 'C:/Users/timmn/Documents/Repositories/vegetation-plots-database/structure_metadata/Insert_1_Taxonomy.sql'
 
 # Identify taxonomy tables
 vascular_file = paste(data_folder,

@@ -9,13 +9,13 @@
 
 # Select a target and reference excel table
 target_file = file.choose()
-target_sheet = 'cover'
+target_sheet = 'gdetail'
 reference_file = file.choose()
-reference_sheet = 'TBL_SITE'
-join_field = 'siteCode'
+reference_sheet = 'environment'
+join_field = c('PlotNumber' = 'siteCode')
 
 # Define an output csv
-output_csv = 'N:/ACCS_Work/Projects/VegetationEcology/AKVEG_PlotsDatabase/Data/vegetationPlots/20_npsKlondikeLC_2011/cover_join.csv'
+output_csv = 'N:/ACCS_Work/Projects/VegetationEcology/AKVEG_PlotsDatabase/Data/Data_Plots/12_npsDenaliLC_1999/environment_join.csv'
 
 # Import required libraries
 library(dplyr)
@@ -35,5 +35,4 @@ target_data = target_data %>%
   left_join(reference_data, by = join_field)
 
 # Export the joined table as a csv file
-output_csv = 'N:/ACCS_Work/Projects/VegetationEcology/AKVEG_PlotsDatabase/Data/vegetationPlots/20_npsKlondikeLC_2011/cover_join.csv'
 write.csv(target_data, file = output_csv, fileEncoding = 'UTF-8', row.names = FALSE)

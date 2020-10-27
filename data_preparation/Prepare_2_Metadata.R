@@ -18,7 +18,7 @@ data_folder = paste(drive,
                     sep = '/')
 
 # Designate output sql file
-sql_metadata = 'C:/Users/timmn/Documents/Repositories/vegetation-plots-database/database/Insert_2_Metadata.sql'
+sql_metadata = 'C:/Users/timmn/Documents/Repositories/vegetation-plots-database/structure_metadata/Insert_2_Metadata.sql'
 
 # Identify metadata tables
 dictionary_file = paste(data_folder,
@@ -164,7 +164,7 @@ datum_csv = paste(data_folder, 'csv', 'datum.csv', sep = '/')
 disturbance_csv = paste(data_folder, 'csv', 'disturbance.csv', sep = '/')
 drainage_csv = paste(data_folder, 'csv', 'drainage.csv', sep = '/')
 geomorphology_csv = paste(data_folder, 'csv', 'geomorphology.csv', sep = '/')
-macrotopography_csv = paste(data_folder, 'csv', 'macroptopography.csv', sep = '/')
+macrotopography_csv = paste(data_folder, 'csv', 'macrotopography.csv', sep = '/')
 microtopography_csv = paste(data_folder, 'csv', 'microtopography.csv', sep = '/')
 moisture_csv = paste(data_folder, 'csv', 'moisture.csv', sep = '/')
 organizationType_csv = paste(data_folder, 'csv', 'organizationType.csv', sep = '/')

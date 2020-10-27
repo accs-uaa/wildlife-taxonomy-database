@@ -12,7 +12,8 @@ START TRANSACTION;
 
 -- Drop site tables if they exist
 DROP TABLE IF EXISTS
-    site;
+    site
+CASCADE;
 
 -- Create site table
 CREATE TABLE site (

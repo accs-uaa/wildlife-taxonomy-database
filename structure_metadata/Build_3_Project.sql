@@ -26,7 +26,8 @@ CREATE TABLE project (
     projectNameAbbr varchar(20) UNIQUE NOT NULL,
     completionID smallint NOT NULL REFERENCES completion,
     yearStart smallint NOT NULL,
-    yearEnd smallint
+    yearEnd smallint,
+    projectDescription varchar(255) NOT NULL
 );
 
 -- Create project status table
