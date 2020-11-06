@@ -9,13 +9,13 @@
 
 # Select a target and reference excel table
 target_file = file.choose()
-target_sheet = 'gdetail'
+target_sheet = 'cover'
 reference_file = file.choose()
-reference_sheet = 'environment'
-join_field = c('PlotNumber' = 'siteCode')
+reference_sheet = 'sites'
+join_field = c('siteCode' = 'oldSite')
 
 # Define an output csv
-output_csv = 'N:/ACCS_Work/Projects/VegetationEcology/AKVEG_PlotsDatabase/Data/Data_Plots/12_npsDenaliLC_1999/environment_join.csv'
+output_csv = 'N:/ACCS_Work/Projects/VegetationEcology/AKVEG_PlotsDatabase/Data/Data_Plots/04_npsGatesLC_1998/site_join.csv'
 
 # Import required libraries
 library(dplyr)
