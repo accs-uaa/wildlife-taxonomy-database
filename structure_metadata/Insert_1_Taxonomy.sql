@@ -2,7 +2,7 @@
 -- ---------------------------------------------------------------------------
 -- Insert taxonomy data
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated:  2020-11-05
+-- Last Updated:  2020-11-06
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Insert taxonomy data" pushes data from the taxonomy editing tables into the database server. The script "Build taxonomy tables" should be run prior to this script to start with empty, properly formatted tables.
 -- ---------------------------------------------------------------------------

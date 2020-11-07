@@ -2,7 +2,7 @@
 -- ---------------------------------------------------------------------------
 -- Insert environment data for npsAniakchakLC_2009
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated: 2020-11-05
+-- Last Updated: 2020-11-06
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Insert environment data" pushes the environment data for the specified project into the environment table of the database.
 -- ---------------------------------------------------------------------------

@@ -2,18 +2,18 @@
 -- ---------------------------------------------------------------------------
 -- Query Projects
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated:  2020-11-05
+-- Last Updated:  2020-11-06
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Query projects" queries the project metadata.
 -- ---------------------------------------------------------------------------
 
 -- Compile project data
 SELECT project.projectID as projectID
-     , originator.organization as organization
-     , funder.organization as organization
+     , originator.organization as originator
+     , funder.organization as funder
      , personnel.personnel as manager
      , project.projectName as projectName
-     , project.projectNameAbbr as abbreviation
+     , project.projectNameAbbr as projectNameAbbr
      , completion.completion as projectStatus
      , project.yearStart as yearStart
      , project.yearEnd as yearEnd
@@ -23,4 +23,4 @@ FROM project
     LEFT JOIN organization funder ON project.funderID = funder.organizationID
     LEFT JOIN personnel ON project.managerID = personnel.personnelID
     LEFT JOIN completion ON project.completionID = completion.completionID
-ORDER BY projectID ASC;
+ORDER BY projectID;

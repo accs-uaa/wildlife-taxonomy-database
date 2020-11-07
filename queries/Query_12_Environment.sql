@@ -2,7 +2,7 @@
 -- ---------------------------------------------------------------------------
 -- Query Environment
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated:  2020-11-05
+-- Last Updated:  2020-11-06
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Query environment" queries the environment data.
 -- ---------------------------------------------------------------------------
@@ -53,4 +53,4 @@ FROM environment
     LEFT JOIN soilClass ON environment.soilClassID = soilClass.soilClassID
     LEFT JOIN restrictiveType ON environment.restrictiveTypeID = restrictiveType.restrictiveTypeID
     LEFT JOIN disturbance ON environment.disturbanceID = disturbance.disturbanceID
-ORDER BY environmentID ASC;
+ORDER BY environmentID;

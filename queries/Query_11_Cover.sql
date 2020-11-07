@@ -2,7 +2,7 @@
 -- ---------------------------------------------------------------------------
 -- Query Cover
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated:  2020-11-05
+-- Last Updated:  2020-11-06
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Query cover" queries the cover data.
 -- ---------------------------------------------------------------------------
@@ -25,4 +25,4 @@ FROM cover
     LEFT JOIN coverType ON cover.coverTypeID = coverType.covertypeID
     LEFT JOIN taxonAdjudicated ON cover.adjudicatedID = taxonAdjudicated.adjudicatedID
     LEFT JOIN taxonAccepted ON taxonAdjudicated.acceptedID = taxonAccepted.acceptedID
-ORDER BY coverID ASC;
+ORDER BY coverID;

@@ -2,7 +2,7 @@
 -- ---------------------------------------------------------------------------
 -- Insert cover data for npsGatesLC_1998
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated: 2020-11-05
+-- Last Updated: 2020-11-06
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Insert cover data" pushes the cover data for the specified project into the cover table of the database.
 -- ---------------------------------------------------------------------------

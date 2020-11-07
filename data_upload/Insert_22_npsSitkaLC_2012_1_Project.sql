@@ -2,7 +2,7 @@
 -- ---------------------------------------------------------------------------
 -- Insert project metadata for npsSitkaLC_2012
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated: 2020-11-05
+-- Last Updated: 2020-11-06
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Insert project metadata" pushes the metadata for the specified project into the project table of the database.
 -- ---------------------------------------------------------------------------

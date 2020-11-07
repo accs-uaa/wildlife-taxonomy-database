@@ -2,7 +2,7 @@
 -- ---------------------------------------------------------------------------
 -- Query Sites
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated:  2020-11-05
+-- Last Updated:  2020-11-06
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Query sites" queries the site data.
 -- ---------------------------------------------------------------------------
@@ -30,4 +30,4 @@ FROM site
     LEFT JOIN scope scopeLichen ON site.scopeVascularID = scopeLichen.scopeID
     LEFT JOIN plotDimensions ON site.plotDimensionsID = plotDimensions.plotDimensionsID
     LEFT JOIN datum ON site.datumID = datum.datumID
-ORDER BY siteID ASC;
+ORDER BY siteID;
