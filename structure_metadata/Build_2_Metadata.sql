@@ -4,7 +4,7 @@
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
 -- Last Updated: 2020-10-20
 -- Usage: Script should be executed in a PostgreSQL 12 database.
--- Description: "Build metadata and constraint tables" creates the empty tables for the metadata components of the AKVEG database, including the schema and data dictionary. WARNING: THIS SCRIPT WILL ERASE ALL DATA IN EXISTING ENVIRONMENT TABLES.
+-- Description: "Build metadata and constraint tables" creates the empty tables for the metadata components of the AKVEG database, including the schema and data dictionary. WARNING: THIS SCRIPT WILL ERASE ALL DATA IN EXISTING METADATA TABLES.
 -- ---------------------------------------------------------------------------
 
 -- Initialize transaction

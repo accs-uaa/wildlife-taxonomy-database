@@ -4,7 +4,7 @@
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
 -- Last Updated: 2020-10-19
 -- Usage: Script should be executed in a PostgreSQL database.
--- Description: "Build project tables" creates the empty tables for the site components of the AKVEG database. WARNING: THIS SCRIPT WILL ERASE ALL DATA IN EXISTING ENVIRONMENT TABLES.
+-- Description: "Build site tables" creates the empty tables for the site components of the AKVEG database. WARNING: THIS SCRIPT WILL ERASE ALL DATA IN EXISTING SITE TABLE.
 -- ---------------------------------------------------------------------------
 
 -- Initialize transaction
