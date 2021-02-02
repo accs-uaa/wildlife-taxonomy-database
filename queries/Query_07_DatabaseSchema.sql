@@ -2,26 +2,26 @@
 -- ---------------------------------------------------------------------------
 -- Query Database Schema
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated:  2020-11-06
+-- Last Updated:  2021-01-29
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Query database schema" queries the database schema.
 -- ---------------------------------------------------------------------------
 
 -- Compile database schema
-SELECT databaseSchema.fieldID as fieldID
-     , schemaCategory.schemaCategory as schemaCategory
-     , nativeTable.schemaTable as schemaTable
-     , databaseSchema.field as field
-     , dataType.dataType as dataType
-     , databaseSchema.fieldLength as fieldLength
-     , databaseSchema.isUnique as isUnique
-     , databaseSchema.isKey as isKey
-     , databaseSchema.required as required
-     , linkTable.schemaTable as linkTable
-     , databaseSchema.fieldDescription as fieldDescription
-FROM databaseSchema
-    LEFT JOIN schemaCategory ON databaseSchema.schemaCategoryID = schemaCategory.schemaCategoryID
-    LEFT JOIN schemaTable nativeTable ON databaseSchema.schemaTableID = nativeTable.schemaTableID
-    LEFT JOIN dataType ON databaseSchema.dataTypeID = dataType.dataTypeID
-    LEFT JOIN schemaTable linkTable ON databaseSchema.linkTableID = linkTable.schemaTableID
-ORDER BY fieldID;
+SELECT database_schema.field_id as field_id
+     , schema_category.schema_category as schema_category
+     , native_table.schema_table as schema_table
+     , database_schema.field as field
+     , data_type.data_type as data_type
+     , database_schema.field_length as field_length
+     , database_schema.is_unique as is_unique
+     , database_schema.is_key as is_key
+     , database_schema.required as required
+     , link_table.schema_table as link_table
+     , database_schema.field_description as field_description
+FROM database_schema
+    LEFT JOIN schema_category ON database_schema.schema_category_id = schema_category.schema_category_id
+    LEFT JOIN schema_table native_table ON database_schema.schema_table_id = native_table.schema_table_id
+    LEFT JOIN data_type ON database_schema.data_type_id = data_type.data_type_id
+    LEFT JOIN schema_table link_table ON database_schema.link_table_id = link_table.schema_table_id
+ORDER BY field_id;

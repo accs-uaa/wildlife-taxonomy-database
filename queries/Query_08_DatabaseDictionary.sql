@@ -2,16 +2,16 @@
 -- ---------------------------------------------------------------------------
 -- Query Database Dictionary
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated:  2020-11-06
+-- Last Updated:  2021-01-29
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Query database dictionary" queries the database dictionary.
 -- ---------------------------------------------------------------------------
 
 -- Compile database dictionary
-SELECT databaseDictionary.dictionaryID as dictionaryID
-     , databaseSchema.field as field
-     , databaseDictionary.attributeid as attributeID
-     , databaseDictionary.attribute as attribute
-FROM databaseDictionary
-    LEFT JOIN databaseSchema ON databaseDictionary.fieldID = databaseSchema.fieldID
-ORDER BY dictionaryID;
+SELECT database_dictionary.dictionary_id as dictionary_id
+     , database_schema.field as field
+     , database_dictionary.attribute_id as attribute_id
+     , database_dictionary.attribute as attribute
+FROM database_dictionary
+    LEFT JOIN database_schema ON database_dictionary.field_id = database_schema.field_id
+ORDER BY dictionary_id;

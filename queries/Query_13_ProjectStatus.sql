@@ -2,20 +2,20 @@
 -- ---------------------------------------------------------------------------
 -- Query Project Status
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated:  2020-11-06
+-- Last Updated:  2021-02-02
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Query project status" queries the project status metadata.
 -- ---------------------------------------------------------------------------
 
 -- Compile project status
-SELECT projectStatus.projectStatusID as projectStatusID
-     , project.projectNameAbbr as project
-     , projectStatus.projectModified as projectModified
-     , projectStatus.siteModified as siteModified
-     , projectStatus.coverModified as coverModified
-     , projectStatus.environmentModified as environmentModified
-     , personnel.personnel as modifiedBy
-FROM projectStatus
-    LEFT JOIN project ON projectStatus.projectID = project.projectID
-    LEFT JOIN personnel ON projectStatus.modifiedByID = personnel.personnelID
-ORDER BY projectStatusID;
+SELECT project_status.project_status_id as project_status_id
+     , project.project_abbr as project
+     , project_status.project_modified as project_modified
+     , project_status.site_modified as site_modified
+     , project_status.cover_modified as cover_modified
+     , project_status.environment_modified as environment_modified
+     , personnel.personnel as modified_by
+FROM project_status
+    LEFT JOIN project ON project_status.project_id = project.project_id
+    LEFT JOIN personnel ON project_status.modified_by_id = personnel.personnel_id
+ORDER BY project_status_id;
