@@ -2,9 +2,10 @@
 -- ---------------------------------------------------------------------------
 -- Build taxonomy tables
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated: 2021-01-27
+-- Adapted for wildlife data by Amanda Droghini, Alaska Center for Conservation Science
 -- Usage: Script should be executed in a PostgreSQL 12 database.
--- Description: "Build taxonomy tables" creates the empty tables for the taxonomy components of the AKVEG database. WARNING: THIS SCRIPT WILL ERASE ALL DATA IN EXISTING TAXONOMY TABLES.
+-- Description: "Build taxonomy tables" creates the empty tables for the taxonomy components of the AKWILD database.
+-- WARNING: THIS SCRIPT WILL ERASE ALL DATA IN EXISTING TAXONOMY TABLES.
 -- ---------------------------------------------------------------------------
 
 -- Initialize transaction
@@ -12,38 +13,36 @@ START TRANSACTION;
 
 -- Drop taxonomy tables if they exist
 DROP TABLE IF EXISTS
-    taxon_adjudicated,
+    taxon_synonyms,
     taxon_accepted,
     hierarchy,
-    author,
-    category,
+    class,
+    tax_order,
     family,
-    habit,
     taxon_status,
     taxon_level,
     taxon_source
 CASCADE;
 
 -- Create constraint tables
-CREATE TABLE author (
-    author_id integer PRIMARY KEY,
-    author varchar(120) UNIQUE NOT NULL
+CREATE TABLE class (
+    class_id smallint PRIMARY KEY,
+    class varchar(10) UNIQUE NOT NULL
 );
-CREATE TABLE category (
-    category_id smallint PRIMARY KEY,
-    category varchar(30) UNIQUE NOT NULL
+
+CREATE TABLE tax_order (
+    order_id smallint PRIMARY KEY,
+    tax_order varchar(30) UNIQUE NOT NULL
 );
+
 CREATE TABLE family (
     family_id smallint PRIMARY KEY,
-    family varchar(80) UNIQUE NOT NULL
+    family varchar(30) UNIQUE NOT NULL
 );
-CREATE TABLE habit (
-    habit_id smallint PRIMARY KEY,
-    habit varchar(80) UNIQUE NOT NULL
-);
+
 CREATE TABLE taxon_status (
     taxon_status_id smallint PRIMARY KEY,
-    taxon_status varchar(30) UNIQUE NOT NULL
+    taxon_status varchar(20) UNIQUE NOT NULL
 );
 CREATE TABLE taxon_level (
     level_id smallint PRIMARY KEY,
@@ -60,29 +59,28 @@ CREATE TABLE hierarchy (
     hierarchy_id smallint PRIMARY KEY,
     genus_accepted varchar(50) UNIQUE NOT NULL,
     family_id smallint NOT NULL REFERENCES family,
-    category_id smallint NOT NULL REFERENCES category
+    order_id smallint NOT NULL REFERENCES tax_order,
+    class_id smallint NOT NULL REFERENCES class
 );
 
 -- Create accepted taxa table
 CREATE TABLE taxon_accepted (
     accepted_id integer PRIMARY KEY,
     name_accepted varchar(120) UNIQUE NOT NULL,
-    auth_accepted_id integer NOT NULL REFERENCES author,
     hierarchy_id smallint NOT NULL REFERENCES hierarchy,
     taxon_source_id smallint REFERENCES taxon_source,
     link_source varchar(255),
     level_id smallint NOT NULL REFERENCES taxon_level,
-    habit_id smallint NOT NULL REFERENCES habit,
     native boolean NOT NULL,
-    non_native boolean NOT NULL
+    non_native boolean NOT NULL,
+    endemic boolean NOT NULL
 );
 
--- Create adjudicated taxa table
-CREATE TABLE taxon_adjudicated (
-    adjudicated_id integer PRIMARY KEY,
-    name_adjudicated varchar(120) NOT NULL,
-    auth_adjudicated_id integer NOT NULL REFERENCES author,
-    status_adjudicated_id smallint NOT NULL REFERENCES taxon_status,
+-- Create synonyms taxa table
+CREATE TABLE taxon_synonyms (
+    synonym_id integer PRIMARY KEY,
+    name_given varchar(120) NOT NULL,
+    taxon_status_id smallint NOT NULL REFERENCES taxon_status,
     accepted_id integer NOT NULL REFERENCES taxon_accepted
 );
 
