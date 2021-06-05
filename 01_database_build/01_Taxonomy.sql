@@ -71,9 +71,9 @@ CREATE TABLE taxon_accepted (
     taxon_source_id smallint REFERENCES taxon_source,
     link_source varchar(255),
     level_id smallint NOT NULL REFERENCES taxon_level,
-    native boolean NOT NULL,
-    non_native boolean NOT NULL,
-    endemic boolean NOT NULL
+    native boolean,
+    non_native boolean,
+    endemic boolean
 );
 
 -- Create synonyms taxa table

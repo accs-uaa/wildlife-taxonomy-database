@@ -370,5 +370,8 @@ statement = c(statement,
               '-- Commit transaction',
               'COMMIT TRANSACTION;')
 
+# Replace NA with NULL
+statement = str_replace_all(statement, ', NA', ', NULL')
+
 # Write statement to SQL file
 write_lines(statement, sql_taxonomy)
