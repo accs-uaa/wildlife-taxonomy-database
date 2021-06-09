@@ -1,5 +1,5 @@
 # Alaska Vegetation Plots Database
-Alaska Vegetation Plots Database (AKVEG) scripts to compile database from quality controlled source data and enable database replication.
+Alaska Vegetation Plots Database (AKVEG) scripts to compile database from quality controlled source data and enable database replication in PostgreSQL and MySQL.
 
 ## Getting Started
 

@@ -2,7 +2,6 @@
 -- ---------------------------------------------------------------------------
 -- Query Database Dictionary
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated:  2021-01-29
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Query database dictionary" queries the database dictionary.
 -- ---------------------------------------------------------------------------

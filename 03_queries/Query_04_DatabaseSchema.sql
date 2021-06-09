@@ -2,7 +2,6 @@
 -- ---------------------------------------------------------------------------
 -- Query Database Schema
 -- Author: Timm Nawrocki, Alaska Center for Conservation Science
--- Last Updated:  2021-01-29
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Query database schema" queries the database schema.
 -- ---------------------------------------------------------------------------
