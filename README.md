@@ -17,7 +17,7 @@ To build an empty version of the database (i.e., no data loaded into it), run th
 
 To process new data, use the R scripts in the **02_data_insertion** folder to create SQL Insert statements from source data. 
 
-To build a replicate copy of the database, run all R scripts and SQL statements included in the repository in the numerical order associated with the folders and script names. SQL statements can be executed in a SQL interpreter configured to access your database server. The resulting vegetation database will be identical to the version available online at [https://faunaofalaska.org](https://faunaofalaska.org). 
+To build a replicate copy of the database, run all R scripts and SQL statements included in the repository in the numerical order associated with the folders and script names. SQL statements can be executed in a SQL interpreter configured to access your database server. The resulting database will be identical to the version available online at [https://faunaofalaska.org](https://faunaofalaska.org). 
 
 All scripts should be run in the numeric order associated with the script names. 
 
