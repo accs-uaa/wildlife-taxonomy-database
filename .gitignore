@@ -33,4 +33,6 @@ Thumbs.db
 .Rdata
 .Rproj.user
 .Ruserdata
-AKVEG_PlotsDatabase/
+package_DataProcessing/
+
+example_code/
