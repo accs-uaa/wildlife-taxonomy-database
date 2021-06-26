@@ -2,7 +2,7 @@
 -- ---------------------------------------------------------------------------
 -- Insert metadata and constraints
 -- Author: Timm Nawrocki & Amanda Droghini, Alaska Center for Conservation Science
--- Last Updated:  2021-06-05
+-- Last Updated:  2021-06-24
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Insert metadata and constraints" pushes data from the database dictionary and schema into the database server. The script "Build metadata and constraint tables" should be run prior to this script to start with empty, properly formatted tables.
 -- ---------------------------------------------------------------------------
@@ -73,24 +73,25 @@ INSERT INTO database_schema (field_id, schema_category_id, schema_table_id, fiel
 (32, 2, 6, 'class_id', 6, NULL, FALSE, TRUE, TRUE, 1, 'Foreign key value that identifies the taxonomic class that encompasses the accepted genus.'),
 (33, 2, 10, 'accepted_id', 4, NULL, TRUE, TRUE, TRUE, NULL, 'Unique integer key value per taxon, inclusive of subspecies, populations, and species.'),
 (34, 2, 10, 'name_accepted', 7, '120', TRUE, FALSE, TRUE, NULL, 'Taxon name, inclusive of infraspecies, inclusive of subspecies, populations, and species.'),
-(35, 2, 10, 'hierarchy_id', 6, NULL, FALSE, TRUE, FALSE, 6, 'Foreign key value that identifies the hierarchy of the taxon genus.'),
-(36, 2, 10, 'taxon_source_id', 6, NULL, FALSE, TRUE, FALSE, 12, 'Foreign key value that identifies the primary name source defining the taxon concept applied in the database.'),
-(37, 2, 10, 'link_source', 7, '255', TRUE, FALSE, FALSE, NULL, 'Html link to the primary name source that defines the taxon concept applied in the database.'),
-(38, 2, 10, 'level_id', 6, NULL, FALSE, TRUE, FALSE, 11, 'Foreign key value that identifies the taxonomic level of the accepted taxon.'),
-(39, 2, 10, 'native', 1, NULL, FALSE, FALSE, FALSE, NULL, 'Boolean value with 1 indicating that the taxon is native in Alaska, which is not exclusive to the taxon also being non-native in Alaska.'),
-(40, 2, 10, 'non_native', 1, NULL, FALSE, FALSE, FALSE, NULL, 'Boolean value with 1 indicating that the taxon is non-native in Alaska, which is not exclusive to the taxon also being native in Alaska.'),
-(41, 2, 10, 'endemic', 1, NULL, FALSE, FALSE, FALSE, NULL, 'Boolean value with 1 indicating that the taxon is endemic to Alaska, which is exclusive to the taxon being native in Alaska.'),
-(42, 2, 14, 'synonym_id', 4, NULL, TRUE, TRUE, TRUE, NULL, 'Unique integer key value per taxon name that has been applied in Alaska (includes accepted names, synonyms, misapplied names, and orthographic variants).'),
-(43, 2, 14, 'name_given', 7, '120', TRUE, FALSE, TRUE, NULL, 'Taxon name that has been applied in Alaska (includes accepted names, synonyms, misapplied names, and orthographic variants).'),
-(44, 2, 14, 'taxon_status_id', 6, NULL, FALSE, TRUE, FALSE, 13, 'Foreign key value that identifies the taxonomic status of the name.'),
-(45, 2, 14, 'accepted_id', 4, NULL, FALSE, TRUE, TRUE, 10, 'Foreign key value that identifies the accepted name to which the given name should refer.'),
-(46, 2, 11, 'level_id', 6, NULL, TRUE, TRUE, TRUE, NULL, 'Unique integer key value per taxonomic level.'),
-(47, 2, 11, 'level', 7, '30', TRUE, FALSE, TRUE, NULL, 'Taxonomic level of name.'),
-(48, 2, 12, 'taxon_source_id', 6, NULL, TRUE, TRUE, TRUE, NULL, 'Unique integer key value per name source.'),
-(49, 2, 12, 'taxon_source', 7, '50', TRUE, FALSE, TRUE, NULL, 'Short reference for source of taxon concept applied in database.'),
-(50, 2, 12, 'citation', 7, '500', TRUE, FALSE, TRUE, NULL, 'Full citation for source of taxon concept applied in database.'),
-(51, 2, 13, 'taxon_status_id', 6, NULL, TRUE, TRUE, TRUE, NULL, 'Unique integer key value per taxon status.'),
-(52, 2, 13, 'taxon_status', 7, '20', TRUE, FALSE, TRUE, NULL, 'One to two word description of the taxonomic status of the name.');
+(35, 2, 10, 'name_common', 7, '120', TRUE, FALSE, TRUE, NULL, 'English common name. If a taxon has more than one English common name, we chose the name that is most commonly used for that taxon in Alaska.'),
+(36, 2, 10, 'hierarchy_id', 6, NULL, FALSE, TRUE, FALSE, 6, 'Foreign key value that identifies the hierarchy of the taxon genus.'),
+(37, 2, 10, 'taxon_source_id', 6, NULL, FALSE, TRUE, FALSE, 12, 'Foreign key value that identifies the primary name source defining the taxon concept applied in the database.'),
+(38, 2, 10, 'link_source', 7, '255', TRUE, FALSE, FALSE, NULL, 'Html link to the primary name source that defines the taxon concept applied in the database.'),
+(39, 2, 10, 'level_id', 6, NULL, FALSE, TRUE, FALSE, 11, 'Foreign key value that identifies the taxonomic level of the accepted taxon.'),
+(40, 2, 10, 'native', 1, NULL, FALSE, FALSE, FALSE, NULL, 'Boolean value with 1 indicating that the taxon is native in Alaska, which is not exclusive to the taxon also being non-native in Alaska.'),
+(41, 2, 10, 'non_native', 1, NULL, FALSE, FALSE, FALSE, NULL, 'Boolean value with 1 indicating that the taxon is non-native in Alaska, which is not exclusive to the taxon also being native in Alaska.'),
+(42, 2, 10, 'endemic', 1, NULL, FALSE, FALSE, FALSE, NULL, 'Boolean value with 1 indicating that the taxon is endemic to Alaska, which is exclusive to the taxon being native in Alaska.'),
+(43, 2, 14, 'synonym_id', 4, NULL, TRUE, TRUE, TRUE, NULL, 'Unique integer key value per taxon name that has been applied in Alaska (includes accepted names, synonyms, misapplied names, and orthographic variants).'),
+(44, 2, 14, 'name_given', 7, '120', TRUE, FALSE, TRUE, NULL, 'Taxon name that has been applied in Alaska (includes accepted names, synonyms, misapplied names, and orthographic variants).'),
+(45, 2, 14, 'taxon_status_id', 6, NULL, FALSE, TRUE, FALSE, 13, 'Foreign key value that identifies the taxonomic status of the name.'),
+(46, 2, 14, 'accepted_id', 4, NULL, FALSE, TRUE, TRUE, 10, 'Foreign key value that identifies the accepted name to which the given name should refer.'),
+(47, 2, 11, 'level_id', 6, NULL, TRUE, TRUE, TRUE, NULL, 'Unique integer key value per taxonomic level.'),
+(48, 2, 11, 'level', 7, '30', TRUE, FALSE, TRUE, NULL, 'Taxonomic level of name.'),
+(49, 2, 12, 'taxon_source_id', 6, NULL, TRUE, TRUE, TRUE, NULL, 'Unique integer key value per name source.'),
+(50, 2, 12, 'taxon_source', 7, '50', TRUE, FALSE, TRUE, NULL, 'Short reference for source of taxon concept applied in database.'),
+(51, 2, 12, 'citation', 7, '500', TRUE, FALSE, TRUE, NULL, 'Full citation for source of taxon concept applied in database.'),
+(52, 2, 13, 'taxon_status_id', 6, NULL, TRUE, TRUE, TRUE, NULL, 'Unique integer key value per taxon status.'),
+(53, 2, 13, 'taxon_status', 7, '20', TRUE, FALSE, TRUE, NULL, 'One to two word description of the taxonomic status of the name.');
 
 -- Insert data into database dictionary
 INSERT INTO database_dictionary (dictionary_id, field_id, attribute_id, attribute) VALUES

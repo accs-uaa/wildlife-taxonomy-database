@@ -67,6 +67,7 @@ CREATE TABLE hierarchy (
 CREATE TABLE taxon_accepted (
     accepted_id integer PRIMARY KEY,
     name_accepted varchar(120) UNIQUE NOT NULL,
+    name_common varchar(120) UNIQUE NOT NULL,
     hierarchy_id smallint NOT NULL REFERENCES hierarchy,
     taxon_source_id smallint REFERENCES taxon_source,
     link_source varchar(255),

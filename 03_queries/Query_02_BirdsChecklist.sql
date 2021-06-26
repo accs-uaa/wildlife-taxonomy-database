@@ -12,6 +12,7 @@ SELECT taxon_synonyms.synonym_id as name_id
      , CONCAT('<i>', taxon_synonyms.name_given, '</i> ') as name
      , taxon_status.taxon_status as status
      , CONCAT('<i>', taxon_accepted.name_accepted, '</i> ') as name_accepted
+     , taxon_accepted.name_common as name_common
      , family.family as family
      , tax_order.tax_order as "order"
      , class.class as class

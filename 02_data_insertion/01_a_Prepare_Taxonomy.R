@@ -52,7 +52,7 @@ taxonomy_data <- taxonomy_data %>%
   dplyr::filter(level == "species") %>% 
   arrange(class,order,family,name_given) %>% 
   dplyr::mutate(genus = word(name_given,1), id = row_number()) %>% 
-  dplyr::select(id, name_given, name_status, name_accepted, genus, class, order, family, taxon_source, link_source, level, native, non_native, endemic)
+  dplyr::select(id, name_given, name_status, name_accepted, name_common, genus, class, order, family, taxon_source, link_source, level, native, non_native, endemic)
   
 # Export taxonomy table as csv
 csv_taxonomy = paste(data_folder, 'csv', 'taxonomy.csv', sep = '/')
@@ -151,7 +151,7 @@ accepted_table = taxonomy_data %>%
   left_join(level_table, by = 'level') %>%
   arrange(name_accepted) %>%
   rowid_to_column('accepted_id') %>%
-  select(accepted_id, name_accepted, hierarchy_id, taxon_source_id, link_source, level_id, native, non_native, endemic)
+  select(accepted_id, name_accepted, name_common, hierarchy_id, taxon_source_id, link_source, level_id, native, non_native, endemic)
 
 # Export taxon accepted table
 csv_accepted = paste(data_folder, 'csv', 'taxon_accepted.csv', sep = '/')
@@ -327,12 +327,13 @@ for (line in hierarchy_sql) {
 statement = c(statement,
               '',
               '-- Insert data into accepted taxon table',
-              'INSERT INTO taxon_accepted (accepted_id, name_accepted, hierarchy_id, taxon_source_id, link_source, level_id, native, non_native, endemic) VALUES'
+              'INSERT INTO taxon_accepted (accepted_id, name_accepted, name_common, hierarchy_id, taxon_source_id, link_source, level_id, native, non_native, endemic) VALUES'
 )
 accepted_sql = accepted_table %>%
   mutate_if(is.character,
             str_replace_all, pattern = '\'', replacement = '\'\'') %>%
   mutate(name_accepted = paste('\'', name_accepted, '\'', sep = '')) %>%
+  mutate(name_common = paste('\'', name_common, '\'', sep = '')) %>%
   mutate(link_source = paste('\'', link_source, '\'', sep = '')) %>%
   unite(sql, sep = ', ', remove = TRUE) %>%
   mutate(sql = paste('(', sql, '),', sep = ''))
