@@ -12,11 +12,13 @@
 # Set root directory
 drive = 'C:'
 root_folder = 'ACCS_Work'
+project_folder = 'Projects/Database_Taxonomy'
 
 # Define input folders
 data_folder = paste(drive,
                     root_folder,
-                    'Taxonomy_Database/Data/Tables_Metadata',
+                    project_folder,
+                    'Tables_Metadata',
                     sep = '/')
 
 # Designate output sql file
@@ -77,10 +79,10 @@ schema_table = schema_data %>%
   left_join(schema_table_table, by = 'schema_table') %>%
   left_join(data_type_table) %>%
   rowid_to_column('field_id') %>%
-  mutate(link_table_id = replace_na(link_table_id, 'NULL')) %>%
+  mutate(link_table_id = replace_na(as.character(link_table_id), 'NULL'),
+         field_length = replace_na(as.character(field_length),'NULL')) %>%
   select(field_id, schema_category_id, schema_table_id, field, data_type_id, field_length, is_unique, is_key, required, link_table_id, field_description) %>%
-  mutate_if(is.character,
-            str_replace_all, pattern = '\'NA\'', replacement = 'NULL')
+  mutate_if(is.character,str_replace_all, pattern = '\'NA\'', replacement = 'NULL')
 
 # Export schema table
 schema_csv = paste(data_folder, 'csv', 'database_schema.csv', sep = '/')

@@ -12,11 +12,13 @@
 # Set root directory
 drive = 'C:'
 root_folder = 'ACCS_Work'
+project_folder = 'Projects/Database_Taxonomy'
 
 # Define input folders
 data_folder = paste(drive,
                     root_folder,
-                    'Taxonomy_Database/Data/Tables_Taxonomy',
+                    project_folder,
+                    'Tables_Taxonomy',
                     sep = '/')
 
 # Designate output sql file
