@@ -7,6 +7,8 @@
 # Description: "Prepare taxonomic data for upload" parses data into a SQL query for upload into empty tables.
 # ---------------------------------------------------------------------------
 
+rm(list=ls())
+
 # Define directories ----
 
 # Set root directory
@@ -26,6 +28,18 @@ sql_taxonomy = paste(drive,
                      root_folder,
                      'GitHub/wildlife-taxonomy-database/02_data_insertion/01_b_Insert_Taxonomy.sql',
                      sep = "/")
+
+# Designate output csv files
+csv_taxonomy = paste(data_folder, 'csv', 'taxonomy.csv', sep = '/')
+csv_order = paste(data_folder, 'csv', 'order.csv', sep = '/')
+csv_class = paste(data_folder, 'csv', 'class.csv', sep = '/')
+csv_family = paste(data_folder, 'csv', 'family.csv', sep = '/')
+csv_status = paste(data_folder, 'csv', 'taxon_status.csv', sep = '/')
+csv_level = paste(data_folder, 'csv', 'taxon_level.csv', sep = '/')
+csv_source = paste(data_folder, 'csv', 'taxon_source.csv', sep = '/')
+csv_hierarchy = paste(data_folder, 'csv', 'hierarchy.csv', sep = '/')
+csv_accepted = paste(data_folder, 'csv', 'taxon_accepted.csv', sep = '/')
+csv_synonym = paste(data_folder, 'csv', 'taxon_synonyms.csv', sep = '/')
 
 # Identify taxonomy tables
 wildlife_file = paste(data_folder,
@@ -57,7 +71,6 @@ taxonomy_data <- taxonomy_data %>%
   dplyr::select(id, name_given, name_status, name_accepted, name_common, genus, class, order, family, taxon_source, link_source, level, native, non_native, endemic)
   
 # Export taxonomy table as csv
-csv_taxonomy = paste(data_folder, 'csv', 'taxonomy.csv', sep = '/')
 write.csv(taxonomy_data, file = csv_taxonomy, fileEncoding = 'UTF-8', row.names = FALSE)
 
 # Parse tables for SQL database ----
@@ -69,7 +82,6 @@ class_table = taxonomy_data %>%
   rowid_to_column('class_id')
 
 # Export class table
-csv_class = paste(data_folder, 'csv', 'class.csv', sep = '/')
 write.csv(class_table, file = csv_class, fileEncoding = 'UTF-8', row.names = FALSE)
 
 # Parse order table
@@ -79,7 +91,6 @@ order_table = taxonomy_data %>%
   rowid_to_column('order_id')
 
 # Export order table
-csv_order = paste(data_folder, 'csv', 'order.csv', sep = '/')
 write.csv(order_table, file = csv_order, fileEncoding = 'UTF-8', row.names = FALSE)
 
 # Parse family table
@@ -89,7 +100,6 @@ family_table = taxonomy_data %>%
   rowid_to_column('family_id')
 
 # Export family table
-csv_family = paste(data_folder, 'csv', 'family.csv', sep = '/')
 write.csv(family_table, file = csv_family, fileEncoding = 'UTF-8', row.names = FALSE)
 
 # Parse taxonomic status table
@@ -100,7 +110,6 @@ status_table = taxonomy_data %>%
   rowid_to_column('taxon_status_id')
 
 # Export taxonomic status table
-csv_status = paste(data_folder, 'csv', 'taxon_status.csv', sep = '/')
 write.csv(status_table, file = csv_status, fileEncoding = 'UTF-8', row.names = FALSE)
 
 # Parse taxonomic level table
@@ -110,7 +119,6 @@ level_table = taxonomy_data %>%
   rowid_to_column('level_id')
 
 # Export taxonomic level table
-csv_level = paste(data_folder, 'csv', 'taxon_level.csv', sep = '/')
 write.csv(level_table, file = csv_level, fileEncoding = 'UTF-8', row.names = FALSE)
 
 # Parse taxonomic source table
@@ -123,7 +131,6 @@ source_table = taxonomy_data %>%
   rowid_to_column('taxon_source_id')
 
 # Export taxonomic source table
-csv_source = paste(data_folder, 'csv', 'taxon_source.csv', sep = '/')
 write.csv(source_table, file = csv_source, fileEncoding = 'UTF-8', row.names = FALSE)
 
 # Parse hierarchy table
@@ -140,7 +147,6 @@ hierarchy_table = taxonomy_data %>%
   select(hierarchy_id, genus_accepted, family_id, order_id, class_id)
 
 # Export hierarchy table
-csv_hierarchy = paste(data_folder, 'csv', 'hierarchy.csv', sep = '/')
 write.csv(hierarchy_table, file = csv_hierarchy, fileEncoding = 'UTF-8', row.names = FALSE)
 
 # Parse taxon accepted table
@@ -156,7 +162,6 @@ accepted_table = taxonomy_data %>%
   select(accepted_id, name_accepted, name_common, hierarchy_id, taxon_source_id, link_source, level_id, native, non_native, endemic)
 
 # Export taxon accepted table
-csv_accepted = paste(data_folder, 'csv', 'taxon_accepted.csv', sep = '/')
 write.csv(accepted_table, file = csv_accepted, fileEncoding = 'UTF-8', row.names = FALSE)
 
 # Parse synonym taxon table
@@ -168,7 +173,6 @@ synonyms_table = taxonomy_data %>%
   select(synonym_id, name_given, taxon_status_id, accepted_id)
 
 # Export given name table
-csv_synonym = paste(data_folder, 'csv', 'taxon_synonyms.csv', sep = '/')
 write.csv(synonyms_table, file = csv_synonym, fileEncoding = 'UTF-8', row.names = FALSE)
 
 #### Write data to SQL file ----

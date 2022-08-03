@@ -7,10 +7,12 @@
 # Description: "Prepare metadata and constraints for upload" parses metadata and constraints into a SQL query for upload into empty tables.
 # ---------------------------------------------------------------------------
 
+rm(list=ls())
+
 # Define directories ----
 
 # Set root directory
-drive = 'C:'
+drive = 'D:'
 root_folder = 'ACCS_Work'
 project_folder = 'Projects/Database_Taxonomy'
 
@@ -26,6 +28,13 @@ sql_metadata = paste(drive,
                      root_folder,
                      'GitHub/wildlife-taxonomy-database/02_data_insertion/02_b_Insert_Metadata.sql',
                      sep = "/")
+
+# Designate output csv files
+data_type_csv = paste(data_folder, 'csv', 'data_type.csv', sep = '/')
+schema_category_csv = paste(data_folder, 'csv', 'schema_category.csv', sep = '/')
+schema_table_csv = paste(data_folder, 'csv', 'schema_table.csv', sep = '/')
+schema_csv = paste(data_folder, 'csv', 'database_schema.csv', sep = '/')
+dictionary_csv = paste(data_folder, 'csv', 'database_dictionary.csv', sep = '/')
 
 # Identify metadata tables
 dictionary_file = paste(data_folder,
@@ -63,10 +72,6 @@ schema_table_table = dictionary_data %>%
   rename(schema_table = attribute)
 
 # Export constraint tables
-data_type_csv = paste(data_folder, 'csv', 'data_type.csv', sep = '/')
-schema_category_csv = paste(data_folder, 'csv', 'schema_category.csv', sep = '/')
-schema_table_csv = paste(data_folder, 'csv', 'schema_table.csv', sep = '/')
-
 write.csv(data_type_table, file = data_type_csv, fileEncoding = 'UTF-8', row.names = FALSE)
 write.csv(schema_category_table, file = schema_category_csv, fileEncoding = 'UTF-8', row.names = FALSE)
 write.csv(schema_table_table, file = schema_table_csv, fileEncoding = 'UTF-8', row.names = FALSE)
@@ -85,7 +90,6 @@ schema_table = schema_data %>%
   mutate_if(is.character,str_replace_all, pattern = '\'NA\'', replacement = 'NULL')
 
 # Export schema table
-schema_csv = paste(data_folder, 'csv', 'database_schema.csv', sep = '/')
 write.csv(schema_table, file = schema_csv, fileEncoding = 'UTF-8', row.names = FALSE)
 
 # Parse dictionary table
@@ -95,7 +99,6 @@ dictionary_table = dictionary_data %>%
   select(dictionary_id, field_id, attribute_id, attribute)
 
 # Export dictionary table
-dictionary_csv = paste(data_folder, 'csv', 'database_dictionary.csv', sep = '/')
 write.csv(dictionary_table, file = dictionary_csv, fileEncoding = 'UTF-8', row.names = FALSE)
 
 #### Write data to SQL file ----

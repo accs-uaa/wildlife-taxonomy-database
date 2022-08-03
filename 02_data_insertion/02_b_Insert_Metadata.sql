@@ -2,7 +2,7 @@
 -- ---------------------------------------------------------------------------
 -- Insert metadata and constraints
 -- Author: Timm Nawrocki & Amanda Droghini, Alaska Center for Conservation Science
--- Last Updated:  2022-06-14
+-- Last Updated:  2022-08-03
 -- Usage: Script should be executed in a PostgreSQL 12 database.
 -- Description: "Insert metadata and constraints" pushes data from the database dictionary and schema into the database server. The script "Build metadata and constraint tables" should be run prior to this script to start with empty, properly formatted tables.
 -- ---------------------------------------------------------------------------
