@@ -3,7 +3,7 @@
 # Prepare taxonomic data for upload
 # Author: Timm Nawrocki, Alaska Center for Conservation Science
 # Adapted for wildlife data by Amanda Droghini, Alaska Center for Conservation Science
-# Usage: Script should be executed in R 4.1.0+.
+# Usage: Script should be executed in R 4.3.1+.
 # Description: "Prepare taxonomic data for upload" parses data into a SQL query for upload into empty tables.
 # ---------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ rm(list=ls())
 # Define directories ----
 
 # Set root directory
-drive = 'C:'
+drive = 'D:'
 root_folder = 'ACCS_Work'
 project_folder = 'Projects/Database_Taxonomy'
 
